@@ -1,0 +1,64 @@
+/*Plant watering system with new blynk update 
+*/
+
+//Include the library files #define BLYNK_PRINT Serial #include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+
+
+char auth[] = "1Xnb78nKQUpNgVUZ0hp7CjRGzXQ_kmR1"; //Enter your Auth token char ssid[] = "Redmi Note 5"; //Enter your WIFI name
+char pass[] = "adamfikri15"; //Enter your WIFI password
+
+
+
+BlynkTimer timer; bool Relay = 0;
+
+
+//Define component pins #define sensor A0 #define waterPump D3
+
+
+void setup() { Serial.begin(9600);
+pinMode(waterPump, OUTPUT); digitalWrite(waterPump, LOW);
+ 
+Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);
+
+
+
+//Call the function
+
+timer.setInterval(100L, soilMoistureSensor);
+
+}
+
+
+
+//Get the button value BLYNK_WRITE(V1) {
+Relay = param.asInt();
+
+
+
+if (Relay == 1) { digitalWrite(waterPump, HIGH); Serial.println("Motor is OFF");
+} else {
+
+digitalWrite(waterPump, LOW); Serial.println("Motor is ON");
+}
+
+}
+
+
+
+//Get the soil moisture values void soilMoistureSensor() {
+int value = analogRead(sensor); value = map(value, 0, 1024, 0, 100); value = (value - 100) * -1;
+
+
+Blynk.virtualWrite(V0, value);
+ 
+Serial.print("Moisture: "); Serial.print(value); Serial.println("%");
+}
+
+
+
+void loop() {
+
+Blynk.run();//Run the Blynk library timer.run();//Run the Blynk timer
+}
