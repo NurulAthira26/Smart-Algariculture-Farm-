@@ -1,5 +1,4 @@
 # IOT-PROJECT-SMART ALGARICULTURE FARM 
-The code you've provided is written in **C++**, specifically designed for programming microcontrollers such as the **ESP8266**. It utilizes the **Blynk** library to connect to the Blynk cloud service, allowing for remote control and monitoring of a plant watering system via a mobile app. Below is a brief breakdown of its key components:
 
 ### Key Components of the Code
 
